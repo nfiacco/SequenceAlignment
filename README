@@ -4,8 +4,8 @@ Author: Nicholas Fiacco
 Date: 03/08/2016
 
 Description:
-This project creates a Profile Hidden Markov Model from a Multiple Sequence Alignment (MSA)
-in SELEX format, training data that can be obtained from the PFAM database. It then uses
+This project creates a Profile Hidden Markov Model using a Multiple Sequence Alignment (MSA)
+in SELEX format, which can be obtained from the PFAM database, as training data. It then uses
 this model to determine the optimal alignment of a query sequence of arbitrary to this model,
 and determines the likelihood that this sequence is a member of the family represented by 
 the MSA. There is also infrastructure to perform forward-backward smoothing, but as discussed
