@@ -1,0 +1,25 @@
+
+Title: SequenceAlignment
+Author: Nicholas Fiacco
+Date: 03/08/2016
+
+Description:
+This project create a Profile Hidden Markov Model from a Multiple Sequence Alignment (MSA)
+in SELEX format, training data that can be obtained from the PFAM database. It then uses
+this model to determine the optimal alignment of a query sequence of arbitrary to this model,
+and determines the likelihood that this sequence is a member of the family represented by 
+the MSA. There is also infrastructure to perform forward-backward smoothing, but as discussed
+in the report this is not an effective analysis given the nature of the transitions in the model.
+
+Usage:
+There is a main method in the MarkovModel.java file, so if you compile and run MarkovModel
+you will probably get what you want.  For ease, simply download the entire file structure,
+and from the command line navigate to bin and run: java sequence.MarkovModel.
+
+Directory Contents:
+src	contains all of the source code
+bin	contains the compiled executables
+doc	contains the report and LaTex file
+data	contains the training data
+etc	contains implementation notes and sample output
+

@@ -1,0 +1,181 @@
+NOTES
+Nicholas Fiacco
+
+This is a file containing all of the notes that I typed up while writing this code.  It might be useful when trying to understand how to model
+functions, since the emission-less states and construction of the alignment can be quite confusing.  It's also interesting to read through the
+process of how the model is built from the data, although this is less Artificial-Intelligencey and more on the bioinformatics side.
+
+
+*************************************************************************************
+*************************************************************************************
+*************************************************************************************
+*************************************************************************************
+
+NOTES FROM MARKOV MODEL
+
+*************************************************************************************
+*************************************************************************************
+*************************************************************************************
+*************************************************************************************
+
+
+// somehow I need to create a start vector		
+// the vector length should be 3 times the number of nodes
+// this is because you have a chance of being at any of the
+// three states (match, insert, delete), at any node
+
+
+// now I need to create transitions from one state to the next at each
+// position assume there is one insert, delete, and match at each position
+// then, from each match or delete state you can transition to one of the
+// three in the next state. from insert you can also transition to yourself
+// the transition probabilities are determined by at each position
+
+
+// for example, if you are in a match state at position k in sequence i, and the
+// next state in position
+
+// keep track of the total number of transitions from match, transitions from insert,
+// and transitions from delete, and track the number of transitions from match to insert
+// match to delete, match to match... and so on and then divide by the total number of
+// transitions from match to get each probability. If the total transitions is 0, then
+// the probability of this transition is 0.  We should probably do something to avoid
+// overfitting, perhaps just using an extremely low probability for unobserved transitions
+// by initializing each transition with a count of 1, as for the emissions
+
+
+// we will loop through columns in the backbone and determine the
+// emission probabilities for each column, these will be the
+// emission probabilities for the match state corresponding to
+// columns in the backbone
+
+// then we will loop through columns not in the backbone and
+// determine emission probabilities for the insert states
+
+// we will also determine transition states by annotating each position
+// in each sequence as insert or delete
+
+// we should annotate immediately after determining the backbone
+// we can do this by making a matrix that is numPositions wide
+// and numSequences long, so each position in each sequence can be
+// indexed with sequence # and position #, then when we check we look
+// at whether the position is in a backbone column, if so then if it
+// is not a blank then it is a match, otherwise it is a delete
+// if it is not a backbone column, then it is an insert ONLY
+// if there is a symbol, otherwise we do not even consider it
+
+// then we can determine transition probabilities
+// if there is a gap because on sequence has an insert state,
+// those sequences without the insert state transition directly
+// to the next match state, and the sequence with the insert state
+// contributes to the probability of a transition from the previous
+// state to an insert state, then the probability of an insert state
+// to the next match state/insert state alone
+
+// you can be in match state position 1-x
+// you can be in insert state position 1-x
+// you can be in delete state 1-x
+
+// each position in the seqeunce will have a probability of being
+// in each of the three states, at any position less than or equal
+// to its own position.  If we denote the sequence position as Si, 
+// then we can be at Mk, Ik, or Dk, with 1 <= k <= i
+
+// if the sequence is long, then when you get to the end of the match
+// states then you will have to transition to the final insert state
+// which transitions to itself with low probability. the more inserts
+// that you have to make at the end, the more likely paths with earlier
+// inserts are, and thus the most likely path will change based on this
+
+
+// you need to determine how long the backbone is by
+// figuring out how many columns have more emissions
+// than gaps, then create your match emissions
+
+// keep track of which columns are part of the backbone
+// the ones that aren't are clearly insert states
+// for those that don't emit '-' at that position
+// if you emit '-' at a backbone column, this is a 
+// delete state, so check what this sequence had at the
+// previous position, and use this for transition probability
+
+
+*************************************************************************************
+*************************************************************************************
+*************************************************************************************
+*************************************************************************************
+
+NOTES FROM TRANSITION MODEL
+
+*************************************************************************************
+*************************************************************************************
+*************************************************************************************
+*************************************************************************************
+
+
+// time to create the transitions from the annotated sequences
+// what will happen is we will make a node for each position
+// as we iterate through positions in the annotated sequences
+
+// also, we will create a start and end state, and determine transitions
+// to and from these states
+// thus, if the first column is not a backbone, then the start state will
+// transition to an insert state however many times that a symbol appears
+// in this first column, otherwise it will transition to the first match state
+
+// if the sequence alignment looks like this:
+//    1  2  3  4   5  6  7  8  9
+// 1 -- -a -c -t --t -t -c -t --
+// 2 -t -g -c -t --t -t -- -c -t
+// 3 ag -t -g -t --- -t -c -g -t
+// 4 aa gt -c -g --t -- -- -g -c
+// 5 -a -t -c -- cct -t -g -g --
+
+// query sequence:
+// aacctgtgcacat
+
+// then we will transition from start to insert 1: 2/5 times
+// we will transition from start to delete 1: 1/5 times
+// and we will transition from start to match 1: 2/5 times
+
+// insert 1 to insert 1: 0 times
+// insert 1 to match 1: 2/2 times
+// insert 1 to delete 1: 0 times
+
+// match 1 to insert 2: 1/4 times
+// match 1 to match 2: 3/4 times
+// match 1 to delete 2: 0 times
+
+// delete 1 to insert 2: 0 times
+// delete 1 to match 2: 1/1 times
+// delete 1 to delete 2: 0 times
+
+// we will store the transition probabilities by creating
+// three states for each position, and creating
+
+// you should do the probability for the successor state when you
+// get a delete state, because the emission for this position will affect
+// the probability of the next state
+
+
+// each position should have a list of possible states
+// if we are at position 1 in the above query sequence,
+// then there is a probability for match 2-5, since if there
+// was a delete then this emission would correspond to the next
+// state rather than match 1.  Note that the numbering of the
+// states is not tied to the position number.
+
+// the probability of being in a delete state should always be 0,
+// if you transition to a delete state, then you should compute the
+// probability of one of the states that delete state transitions to
+// until you reach the very end
+
+// in other words, the transition model should continue with the
+// predict step until there are no more delete states left
+
+// I am in one of three states, I now move to the next position in
+// the sequence. I could have transitioned to any of the next states
+// I will figure out the probability of transitioning to each of these
+// next states based on the probability of me being in the previous state
+// then, based on the emission, I will adjust these probabilities
+

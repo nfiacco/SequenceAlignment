@@ -1,0 +1,43 @@
+This is example output from running the Viterbi alignment on input sequence: GRCERTFLGHEDCVRGLAILSETEFLSCANDASIRRWQ
+It is very interesting to align the output at the very bottom with the alignment in selex_data.txt for comparison.
+
+The most likely state for position 0 with emission G is: M0 with probability 0.9260897030953885
+The most likely state for position 1 with emission R is: M1 with probability 0.06227797983182596
+The most likely state for position 2 with emission C is: M2 with probability 0.008334298556985805
+The most likely state for position 3 with emission E is: M3 with probability 3.530945908339045E-4
+The most likely state for position 4 with emission R is: M4 with probability 4.060398287956228E-5
+The most likely state for position 5 with emission T is: M5 with probability 1.0048159530455504E-5
+The most likely state for position 6 with emission F is: M6 with probability 1.7287039142327952E-6
+The most likely state for position 7 with emission L is: M7 with probability 4.773915405235721E-8
+The most likely state for position 8 with emission G is: M8 with probability 2.2485958426730037E-8
+The most likely state for position 9 with emission H is: M9 with probability 1.6863307017802712E-8
+The most likely state for position 10 with emission E is: M10 with probability 8.743889007541458E-10
+The most likely state for position 11 with emission D is: M11 with probability 9.017296746420335E-11
+The most likely state for position 12 with emission C is: M12 with probability 1.0167116384624646E-12
+The most likely state for position 13 with emission V is: M13 with probability 3.945116085025872E-13
+The most likely state for position 14 with emission R is: M14 with probability 3.335476815465936E-14
+The most likely state for position 15 with emission G is: M15 with probability 2.3989386558271184E-15
+The most likely state for position 16 with emission L is: M16 with probability 7.336272927665729E-16
+The most likely state for position 17 with emission A is: M17 with probability 1.494110751418489E-16
+The most likely state for position 18 with emission I is: M18 with probability 8.947680485367413E-18
+The most likely state for position 19 with emission L is: M19 with probability 3.188622046906798E-19
+The most likely state for position 20 with emission S is: M20 with probability 2.9027558243494215E-20
+The most likely state for position 21 with emission E is: M21 with probability 1.5231843822957569E-21
+The most likely state for position 22 with emission T is: M22 with probability 5.15926050133285E-23
+The most likely state for position 23 with emission E is: M23 with probability 3.4600345134226876E-24
+The most likely state for position 24 with emission F is: M24 with probability 4.542579443326877E-25
+The most likely state for position 25 with emission L is: M25 with probability 1.5902090858049703E-25
+The most likely state for position 26 with emission S is: D26 + M27 with probability 4.546472489441574E-27
+The most likely state for position 27 with emission C is: M27 with probability 4.546472489441574E-27
+The most likely state for position 28 with emission A is: M28 with probability 4.566259659836186E-28
+The most likely state for position 29 with emission N is: M29 with probability 3.3931269266870147E-29
+The most likely state for position 30 with emission D is: M30 with probability 8.030140702229097E-31
+The most likely state for position 31 with emission A is: M31 with probability 6.401425678922245E-31
+The most likely state for position 32 with emission S is: M32 with probability 2.066328691888919E-32
+The most likely state for position 33 with emission I is: M33 with probability 3.029265653737171E-33
+The most likely state for position 34 with emission R is: M34 with probability 9.370717829662997E-34
+The most likely state for position 35 with emission R is: M35 with probability 2.648427932561667E-34
+The most likely state for position 36 with emission W is: M36 with probability 1.4276864446465816E-36
+The most likely state for position 37 with emission Q is: M37 with probability 1.0489033765925678E-36
+
+Aligned Sequence: GRCERT--F----L-----GH----EDC----------------V---R----GLA-----------------ILSETEF-----------L---------S--------C---A---N----DASIRR--WQ
