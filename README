@@ -20,6 +20,6 @@ Directory Contents:
   src -	contains all of the source code
   bin -	contains the compiled executables
   doc -	contains the report and LaTex file
-  data -	contains the training data
+  data - contains the training data
   etc -	contains implementation notes and sample output
 
